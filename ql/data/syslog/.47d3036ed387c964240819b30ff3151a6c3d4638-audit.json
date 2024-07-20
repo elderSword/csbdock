@@ -1,0 +1,20 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 7
+    },
+    "auditLog": "/ql/data/syslog/.47d3036ed387c964240819b30ff3151a6c3d4638-audit.json",
+    "files": [
+        {
+            "date": 1721273873460,
+            "name": "/ql/data/syslog/2024-07-18.log",
+            "hash": "fd92aed62ebb65cf5b8ed183699abaea898d0d84b89e95aac20700d5a6f278dd"
+        },
+        {
+            "date": 1721363992077,
+            "name": "/ql/data/syslog/2024-07-19.log",
+            "hash": "9fa9c28f71206f236cb234b4e9522459ad6b5cf99802019dc0326dbda91f03bf"
+        }
+    ],
+    "hashType": "sha256"
+}

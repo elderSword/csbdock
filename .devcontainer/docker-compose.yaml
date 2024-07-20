@@ -1,0 +1,97 @@
+version: "3.8"
+
+services:
+  qinglong:
+    image: whyour/qinglong:latest
+    container_name: qinglong
+    volumes:
+      - /project/sandbox/ql/data:/ql/data
+    ports:
+      - "0.0.0.0:5700:5700"
+    environment:
+      QlBaseUrl: "/"
+    restart: always
+
+  alist:
+    image: "xhofe/alist-aria2:latest"
+    container_name: alist
+    restart: always
+    volumes:
+      - "/project/sandbox/alist:/opt/alist/data"
+    ports:
+      - "5244:5244"
+    environment:
+      - PUID=0
+      - PGID=0
+      - UMASK=022
+
+  uptime-kuma:
+    image: louislam/uptime-kuma:1
+    container_name: uptime-kuma
+    restart: always
+    volumes:
+      - /project/sandbox/uptimekuma:/app/data
+    ports:
+      - "3001:3001" # <Host Port>:<Container Port>
+
+  halo:
+    image: halohub/halo:2.11
+    container_name: halo
+    restart: on-failure:3
+    depends_on:
+      halodb:
+        condition: service_healthy
+    networks:
+      - halo_network
+    volumes:
+      - /project/sandbox/data/halo2:/root/.halo2
+    ports:
+      - "8090:8090"
+    healthcheck:
+      test:
+        ["CMD", "curl", "-f", "http://localhost:8090/actuator/health/readiness"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    command:
+      - --spring.r2dbc.url=r2dbc:pool:postgresql://halodb/halo
+      - --spring.r2dbc.username=halo
+      # PostgreSQL 的密码，请保证与下方 POSTGRES_PASSWORD 的变量值一致。
+      - --spring.r2dbc.password=12345678
+      - --spring.sql.init.platform=postgresql
+      # 外部访问地址，请根据实际需要修改
+      - --halo.external-url=http://localhost:8090/
+
+  halodb:
+    image: postgres:15.4
+    container_name: halodb
+    restart: on-failure:3
+    networks:
+      - halo_network
+    volumes:
+      - /project/sandbox/data/db:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    environment:
+      - POSTGRES_PASSWORD=12345678
+      - POSTGRES_USER=halo
+      - POSTGRES_DB=halo
+      - PGUSER=halo
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: cloudflared
+    restart: always
+    network_mode: host
+    environment:
+      - TZ=Asia/Shanghai
+    command: tunnel --edge-ip-version auto --protocol quic --heartbeat-interval 10s run --token eyJhIjoiZTgyZDE3MThmOWYwMzJhODQ4YTI0MTYxYmU4NTI4ODMiLCJ0IjoiOWMzMzg5NzUtNmM0MC00MzQ3LTg2ZjAtYzliMzM4Njk2M2I2IiwicyI6IlpUTTJabVZrTm1VdE16TTFOUzAwWkRGbExXRTFNamd0WTJJek5EQXhNRGRpWTJFdyJ9
+
+networks:
+  halo_network:
