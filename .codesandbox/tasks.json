@@ -3,7 +3,7 @@
   "setupTasks": [
     {
       "name": "Deploy",
-      "command": "cd /project/csbdock/.devcontainer/ && docker compose up -d"
+      "command": "cd /project/sandbox/.devcontainer/ && docker compose up -d"
     }
   ],
   // These tasks can be run from CodeSandbox. Running one will open a log in the app.
@@ -13,10 +13,5 @@
       "command": "whereis htop",
       "runAtStart": true
     }
-  },
-  "cloudflared": {
-    "name": "cloudflared",
-    "command": "/app/cloudflared tunnel --no-autoupdate run --token $CF_ZERO_TRUST_TOKEN",
-    "runAtStart": true
   }
 }
