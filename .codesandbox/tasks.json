@@ -13,5 +13,10 @@
       "command": "whereis htop",
       "runAtStart": true
     }
+  },
+  "cloudflared": {
+    "name": "cloudflared",
+    "command": "/app/cloudflared tunnel --no-autoupdate run --token $CF_ZERO_TRUST_TOKEN",
+    "runAtStart": true
   }
 }
