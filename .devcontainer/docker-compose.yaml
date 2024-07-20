@@ -84,5 +84,13 @@ services:
       - POSTGRES_DB=halo
       - PGUSER=halo
 
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: cloudflared
+    restart: always
+    network_mode: host
+    environment:
+      - TZ=Asia/Shanghai
+    command: tunnel --no-autoupdate run --token  $CF_ZERO_TRUST_TOKEN
 networks:
   halo_network:
