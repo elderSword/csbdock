@@ -24,7 +24,7 @@ services:
       - PUID=0
       - PGID=0
       - UMASK=022
-      - ALIST_ADMIN_PASSWORD=$ALIST_PSD
+      - ALIST_ADMIN_PASSWORD=admin
 
   uptime-kuma:
     image: louislam/uptime-kuma:1
