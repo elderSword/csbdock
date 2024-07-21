@@ -12,6 +12,10 @@
     {
       "name": "Downloading filebrowser",
       "command": "mkdir -p /project/sandbox/filebrowser && cd /project/sandbox/filebrowser && wget -O filebrowser.tar.gz https://github.com/filebrowser/filebrowser/releases/download/v2.26.0/linux-amd64-filebrowser.tar.gz && tar -xzvf filebrowser.tar.gz && chmod +x filebrowser && rm -f filebrowser.tar.gz"
+    },
+     {
+      "name": "Deploy",
+      "command": "cd /project/sandbox/.devcontainer/ && docker compose up -d"
     }
   ],
 
@@ -27,7 +31,11 @@
       // 在21021端口打开filebrowser，默认用户名和密码都为admin，登入后请自行在设置中修改用户名和密码，确保安全。
       "command": "./filebrowser/filebrowser -p 21021",
       "runAtStart": true
+    },
+    "xiaoyakeeper": {
+      "name": "aliyun_clear",
+      "command": "bash /project/sandbox/clear.sh",
+      "runAtStart": true
     }
-  
   }
 }
