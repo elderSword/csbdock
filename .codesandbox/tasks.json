@@ -36,7 +36,7 @@
     "Cloudflared": {
       "name": "Cloudflared",
       // 运行Cloudflare Tunnels，请把最后的[ARGO_TOKEN]替换成自己的。
-      "command": "./cloudflared tunnel --edge-ip-version auto --protocol quic --heartbeat-interval 10s run --token eyJhIjoiZTgyZDE3MThmOWYwMzJhODQ4YTI0MTYxYmU4NTI4ODMiLCJ0IjoiOWMzMzg5NzUtNmM0MC00MzQ3LTg2ZjAtYzliMzM4Njk2M2I2IiwicyI6IlpUTTJabVZrTm1VdE16TTFOUzAwWkRGbExXRTFNamd0WTJJek5EQXhNRGRpWTJFdyJ9",
+      "command": "./cloudflared tunnel --edge-ip-version auto --protocol quic --heartbeat-interval 10s run --token $CF_ZERO_TRUST_TOKEN",
       "runAtStart": true
     }
   }
