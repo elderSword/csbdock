@@ -2,15 +2,41 @@
   // These tasks will run in order when initializing your CodeSandbox project.
   "setupTasks": [
     {
-      "name": "Deploy",
-      "command": "cd /project/sandbox/.devcontainer/ && docker compose up -d"
+      "name": "Installing java",
+      "command": "apt-get update && echo | apt-get install openjdk-21-jre"
+    },
+    {
+      "name": "Downloading ttyd",
+      "command": "mkdir -p /project/sandbox/ttyd && cd /project/sandbox/ttyd && wget -O ttyd https://github.com/tsl0922/ttyd/releases/download/1.7.4/ttyd.x86_64 && chmod +x ttyd"
+    },
+    {
+      "name": "Downloading filebrowser",
+      "command": "mkdir -p /project/sandbox/filebrowser && cd /project/sandbox/filebrowser && wget -O filebrowser.tar.gz https://github.com/filebrowser/filebrowser/releases/download/v2.26.0/linux-amd64-filebrowser.tar.gz && tar -xzvf filebrowser.tar.gz && chmod +x filebrowser && rm -f filebrowser.tar.gz"
+    },
+    {
+      "name": "Downloading Cloudflared",
+      "command": "wget -O cloudflared https://github.com/cloudflare/cloudflared/releases/download/2023.10.0/cloudflared-linux-amd64 && chmod +x cloudflared"
     }
   ],
+
   // These tasks can be run from CodeSandbox. Running one will open a log in the app.
   "tasks": {
-    "whereis htop": {
-      "name": "whereis htop",
-      "command": "whereis htop",
+    "ttyd": {
+      "name": "ttyd",
+      // 在21022端口打开ttyd终端，用户名为admin，密码为password，可以自行修改。
+      "command": "./ttyd/ttyd -p 21022 -c admin:password -W zsh",
+      "runAtStart": true
+    },
+    "filebrowser": {
+      "name": "filebrowser",
+      // 在21021端口打开filebrowser，默认用户名和密码都为admin，登入后请自行在设置中修改用户名和密码，确保安全。
+      "command": "./filebrowser/filebrowser -p 21021",
+      "runAtStart": true
+    },
+    "Cloudflared": {
+      "name": "Cloudflared",
+      // 运行Cloudflare Tunnels，请把最后的[ARGO_TOKEN]替换成自己的。
+      "command": "./cloudflared tunnel --edge-ip-version auto --protocol quic --heartbeat-interval 10s run --token eyJhIjoiZTgyZDE3MThmOWYwMzJhODQ4YTI0MTYxYmU4NTI4ODMiLCJ0IjoiOWMzMzg5NzUtNmM0MC00MzQ3LTg2ZjAtYzliMzM4Njk2M2I2IiwicyI6IlpUTTJabVZrTm1VdE16TTFOUzAwWkRGbExXRTFNamd0WTJJek5EQXhNRGRpWTJFdyJ9",
       "runAtStart": true
     }
   }
