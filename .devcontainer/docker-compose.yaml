@@ -5,7 +5,7 @@ services:
     image: whyour/qinglong:latest
     container_name: qinglong
     volumes:
-      - /project/sandbox/ql/data:/ql/data
+      - /project/csbdock/ql/data:/ql/data
     ports:
       - "0.0.0.0:5700:5700"
     environment:
@@ -17,7 +17,7 @@ services:
     container_name: alist
     restart: always
     volumes:
-      - "/project/sandbox/alist:/opt/alist/data"
+      - "/project/csbdock/alist:/opt/alist/data"
     ports:
       - "5244:5244"
     environment:
@@ -31,7 +31,7 @@ services:
     container_name: uptime-kuma
     restart: always
     volumes:
-      - /project/sandbox/uptimekuma:/app/data
+      - /project/csbdock/uptimekuma:/app/data
     ports:
       - "3001:3001" # <Host Port>:<Container Port>
 
@@ -45,7 +45,7 @@ services:
     networks:
       - halo_network
     volumes:
-      - /project/sandbox/data/halo2:/root/.halo2
+      - /project/csbdock/data/halo2:/root/.halo2
     ports:
       - "8090:8090"
     healthcheck:
@@ -71,7 +71,7 @@ services:
     networks:
       - halo_network
     volumes:
-      - /project/sandbox/data/db:/var/lib/postgresql/data
+      - /project/csbdock/data/db:/var/lib/postgresql/data
     ports:
       - "5432:5432"
     healthcheck:
