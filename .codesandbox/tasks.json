@@ -13,10 +13,6 @@
       "name": "Downloading filebrowser",
       "command": "mkdir -p /project/sandbox/filebrowser && cd /project/sandbox/filebrowser && wget -O filebrowser.tar.gz https://github.com/filebrowser/filebrowser/releases/download/v2.26.0/linux-amd64-filebrowser.tar.gz && tar -xzvf filebrowser.tar.gz && chmod +x filebrowser && rm -f filebrowser.tar.gz"
     },
-    {
-      "name": "Downloading Cloudflared",
-      "command": "wget -O cloudflared https://github.com/cloudflare/cloudflared/releases/download/2023.10.0/cloudflared-linux-amd64 && chmod +x cloudflared"
-    },
      {
       "name": "Deploy",
       "command": "cd /project/sandbox/.devcontainer/ && docker compose up -d"
