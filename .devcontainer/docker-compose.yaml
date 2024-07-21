@@ -33,7 +33,7 @@ services:
     volumes:
       - /project/sandbox/uptimekuma:/app/data
     ports:
-      - "3001:3001" # <Host Port>:<Container Port>
+      - "3001:3001"
 
   cloudflared:
     image: cloudflare/cloudflared:latest
