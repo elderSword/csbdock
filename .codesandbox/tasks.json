@@ -16,6 +16,10 @@
     {
       "name": "Downloading Cloudflared",
       "command": "wget -O cloudflared https://github.com/cloudflare/cloudflared/releases/download/2023.10.0/cloudflared-linux-amd64 && chmod +x cloudflared"
+    },
+     {
+      "name": "Deploy",
+      "command": "cd /project/csbdock/.devcontainer/ && docker compose up -d"
     }
   ],
 
