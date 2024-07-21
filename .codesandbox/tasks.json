@@ -23,8 +23,7 @@
   "tasks": {
     "ttyd": {
       "name": "ttyd",
-      // 在21022端口打开ttyd终端，用户名为admin，密码为password，可以自行修改。
-      "command": "./ttyd/ttyd -p 21022 -c admin:password -W zsh",
+      "command": "./ttyd/ttyd -p 21022 -c $NAME:$PSD -W zsh",
       "runAtStart": true
     },
     "filebrowser": {
