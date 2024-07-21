@@ -26,22 +26,6 @@ services:
       - UMASK=022
       - ALIST_ADMIN_PASSWORD=admin
 
-  baota:
-    image: gettionhub/baota-docker:ltd
-    container_name: baota
-    volumes:
-      - /project/sandbox/www/website_data:/www/wwwroot 
-      - /project/sandbox/www/mysql_data:/www/server/data
-      - /project/sandbox/www/vhost:/www/server/panel/vhost 
-    ports:
-      - "8888:8888"
-      - "2022:22"
-      - "2021:21"
-      - "2443:443"
-      - "2080:80"
-      - "2888:888"
-    restart: unless-stopped
-
   uptime-kuma:
     image: louislam/uptime-kuma:1
     container_name: uptime-kuma
