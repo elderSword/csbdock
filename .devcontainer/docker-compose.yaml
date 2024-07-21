@@ -35,55 +35,35 @@ services:
     ports:
       - "3001:3001" # <Host Port>:<Container Port>
 
-  halo:
-    image: halohub/halo:2.11
-    container_name: halo
-    restart: on-failure:3
-    depends_on:
-      halodb:
-        condition: service_healthy
-    networks:
-      - halo_network
+ db:
+    image: mariadb
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
     volumes:
-      - /project/sandbox/data/halo2:/root/.halo2
-    ports:
-      - "8090:8090"
-    healthcheck:
-      test:
-        ["CMD", "curl", "-f", "http://localhost:8090/actuator/health/readiness"]
-      interval: 30s
-      timeout: 5s
-      retries: 5
-      start_period: 30s
-    command:
-      - --spring.r2dbc.url=r2dbc:pool:postgresql://halodb/halo
-      - --spring.r2dbc.username=halo
-      # PostgreSQL 的密码，请保证与下方 POSTGRES_PASSWORD 的变量值一致。
-      - --spring.r2dbc.password=12345678
-      - --spring.sql.init.platform=postgresql
-      # 外部访问地址，请根据实际需要修改
-      - --halo.external-url=http://localhost:8090/
-
-  halodb:
-    image: postgres:15.4
-    container_name: halodb
-    restart: on-failure:3
-    networks:
-      - halo_network
-    volumes:
-      - /project/sandbox/data/db:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
-    healthcheck:
-      test: ["CMD", "pg_isready"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+      - "/project/sandbox/db:/var/lib/mysql"   
     environment:
-      - POSTGRES_PASSWORD=12345678
-      - POSTGRES_USER=halo
-      - POSTGRES_DB=halo
-      - PGUSER=halo
+      - "TZ=Asia/Shanghai"
+      - "MYSQL_ROOT_PASSWORD=jiehdo!25165n"
+      - "MYSQL_DATABASE=kodbox"
+      - "MYSQL_USER=bodbox"
+      - "MYSQL_PASSWORD=jiehdo!25165n"
+    restart: always
+  
+  app:
+    image: kodcloud/kodbox
+    ports:
+      - 8080:80                
+    links:
+      - db
+      - redis
+    volumes:
+      - "/project/sandbox/site:/var/www/html"  
+    restart: always
+
+  redis:
+    image: redis:alpine
+    environment:
+      - "TZ=Asia/Shanghai"
+    restart: always
 
   cloudflared:
     image: cloudflare/cloudflared:latest
