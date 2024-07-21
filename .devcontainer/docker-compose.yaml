@@ -7,7 +7,7 @@ services:
     volumes:
       - /project/sandbox/ql/data:/ql/data
     ports:
-      - "0.0.0.0:5700:5700"
+      - "5700:5700"
     environment:
       QlBaseUrl: "/"
     restart: always
