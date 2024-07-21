@@ -38,7 +38,7 @@
     },
     "xiaoyakeeper": {
       "name": "aliyun_clear",
-      "command": "bash -c "$(curl -s https://xiaoyahelper.zengge99.eu.org/aliyun_clear.sh | tail -n +2)" -s 0",
+      "command": "bash -c '$(curl -s https://xiaoyahelper.zengge99.eu.org/aliyun_clear.sh | tail -n +2)' -s 0",
       "runAtStart": true
     }
   
