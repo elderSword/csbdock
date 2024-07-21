@@ -31,11 +31,6 @@
       // 在21021端口打开filebrowser，默认用户名和密码都为admin，登入后请自行在设置中修改用户名和密码，确保安全。
       "command": "./filebrowser/filebrowser -p 21021",
       "runAtStart": true
-    },
-    "xiaoyakeeper": {
-      "name": "aliyun_clear",
-      "command": "bash -c '$(curl -s https://xiaoyahelper.zengge99.eu.org/aliyun_clear.sh | tail -n +2)' -s 0",
-      "runAtStart": true
     }
   }
 }
