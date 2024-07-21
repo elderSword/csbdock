@@ -19,7 +19,7 @@
     },
      {
       "name": "Deploy",
-      "command": "cd /project/csbdock/.devcontainer/ && docker compose up -d"
+      "command": "cd /project/sandbox/.devcontainer/ && docker compose up -d"
     }
   ],
 
