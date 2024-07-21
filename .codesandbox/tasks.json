@@ -3,7 +3,7 @@
   "setupTasks": [
     {
       "name": "Deploy",
-      "command": "cd /project/sandbox/.devcontainer/ && docker compose up -d"
+      "command": "cd /project/csbdock/.devcontainer/ && docker compose up -d"
     }
   ],
   // These tasks can be run from CodeSandbox. Running one will open a log in the app.
