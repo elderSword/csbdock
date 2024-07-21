@@ -26,7 +26,6 @@ services:
       - UMASK=022
       - ALIST_ADMIN_PASSWORD=admin
 
-  services:
   baota:
     image: gettionhub/baota-docker:ltd
     container_name: baota
@@ -101,14 +100,6 @@ services:
       - POSTGRES_USER=halo
       - POSTGRES_DB=halo
       - PGUSER=halo
-
-  cloudflared:
-    image: cloudflare/cloudflared:latest
-    container_name: cloudflared
-    restart: always
-    network_mode: host
-    environment:
-      - TZ=Asia/Shanghai
-    command: tunnel --edge-ip-version auto --protocol quic --heartbeat-interval 10s run --token  $CF_ZERO_TRUST_TOKEN
+      
 networks:
   halo_network:
