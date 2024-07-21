@@ -35,36 +35,6 @@ services:
     ports:
       - "3001:3001" # <Host Port>:<Container Port>
 
- db:
-    image: mariadb
-    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
-    volumes:
-      - "/project/sandbox/db:/var/lib/mysql"   
-    environment:
-      - "TZ=Asia/Shanghai"
-      - "MYSQL_ROOT_PASSWORD=jiehdo!25165n"
-      - "MYSQL_DATABASE=kodbox"
-      - "MYSQL_USER=bodbox"
-      - "MYSQL_PASSWORD=jiehdo!25165n"
-    restart: always
-  
-  app:
-    image: kodcloud/kodbox
-    ports:
-      - 8080:80                
-    links:
-      - db
-      - redis
-    volumes:
-      - "/project/sandbox/site:/var/www/html"  
-    restart: always
-
-  redis:
-    image: redis:alpine
-    environment:
-      - "TZ=Asia/Shanghai"
-    restart: always
-
   cloudflared:
     image: cloudflare/cloudflared:latest
     container_name: cloudflared
